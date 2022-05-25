@@ -1,0 +1,40 @@
+version: '3.7'
+services:
+  redis:
+    image: redis
+    command: redis-server --requirepass sucasa
+    ports:
+      - '6379:6379'
+    networks:
+      - sucasa_net
+  postgres-db:
+    image: postgres:13.0
+    environment:
+      POSTGRES_PASSWORD: sucasa
+      POSTGRES_USER: postgres
+      POSTGRES_DB: new_conf_db
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./var/lib/postgresql/data
+    networks:
+      - sucasa_net
+  conferences-api12:
+    container_name: conferences-api12
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    depends_on:
+      - postgres-db
+      - redis
+    environment:
+      PORT: 3333
+      REDIS_HOST: redis
+      POSTGRES_HOST: postgres-db
+    ports:
+      - '3333:3333'
+    networks:
+      - sucasa_net
+networks:
+  sucasa_net:
+    driver: bridge

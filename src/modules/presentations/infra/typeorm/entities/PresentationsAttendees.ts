@@ -7,8 +7,8 @@ import {
   JoinTable,
 } from 'typeorm';
 
-@Entity('presentations')
-class AttendeesPresentations {
+@Entity('presentations_attendees')
+class PresentationsAttendees {
   @PrimaryColumn("int")
   attendeeId: number;
 
@@ -23,4 +23,4 @@ class AttendeesPresentations {
   created_at: Date;
 }
 
-export default AttendeesPresentations;
+export default PresentationsAttendees;

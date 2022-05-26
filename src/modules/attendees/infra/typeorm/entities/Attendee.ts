@@ -8,7 +8,7 @@ import {
 
 @Entity('attendees')
 class Attendee {
-  @PrimaryGeneratedColumn('increment')
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column()

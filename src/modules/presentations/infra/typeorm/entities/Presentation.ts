@@ -11,7 +11,7 @@ import {
 
 @Entity('presentations')
 class Presentation {
-  @PrimaryGeneratedColumn('increment')
+  @PrimaryGeneratedColumn()
   id: number;
 
   @ManyToMany(() => Attendee, { onUpdate: "CASCADE" })

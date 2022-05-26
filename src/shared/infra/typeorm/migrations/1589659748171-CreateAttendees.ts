@@ -11,9 +11,14 @@ export default class CreateAttendees1589659748171 implements MigrationInterface 
             type: 'int',
             isPrimary: true,
             generationStrategy: 'increment',
+            isGenerated: true,
           },
           {
             name: 'name',
+            type: 'varchar',
+          },
+          {
+            name: 'bio',
             type: 'varchar',
           },
           {

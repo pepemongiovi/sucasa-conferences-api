@@ -21,7 +21,6 @@ class AttendeesRepository implements IAttendeesRepository {
     const attendee = this.ormRepository.create(attendeeData);
 
     await this.ormRepository.save(attendee);
-
     return attendee;
   }
 

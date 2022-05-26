@@ -11,6 +11,7 @@ export default class CreatePresentations1604378259149 implements MigrationInterf
             type: 'int',
             isPrimary: true,
             generationStrategy: 'increment',
+            isGenerated: true,
           },
           {
             name: 'presentation',

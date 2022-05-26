@@ -1,7 +1,9 @@
 import { inject, injectable } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
-import Presentation from '../infra/typeorm/entities/Presentation';
+import PresentationsAttendees from '../infra/typeorm/entities/PresentationsAttendees';
 import IPresentationsRepository from '../repositories/IPresentationsRepository';
+import IAttendeesRepository from '@modules/attendees/repositories/IAttendeesRepository';
+import IPresentationsAttendeesRepository from '../repositories/IPresentationsAttendeesRepository';
 
 interface IRequest {
   attendee_email: string;
@@ -12,12 +14,16 @@ interface IRequest {
 class IncludeAttendeeService {
   constructor(
     @inject('PresentationsRepository')
-    private presentationsRepository: IPresentationsRepository
+    private presentationsRepository: IPresentationsRepository,
+    @inject('AttendeesRepository')
+    private attendeesRepository: IAttendeesRepository,
+    @inject('PresentationsAttendeesRepository')
+    private presentationsAttendeesRepository: IPresentationsAttendeesRepository
   ) { }
 
-  async execute({ attendee_email, presentation_id }: IRequest): Promise<Presentation> {
+  async execute({ attendee_email, presentation_id }: IRequest): Promise<PresentationsAttendees> {
     const presentation = await this.presentationsRepository.findById(presentation_id);
-    const attendee = await this.presentationsRepository.findById(presentation_id);
+    const attendee = await this.attendeesRepository.findByEmail(attendee_email);
 
     if (!presentation) {
       throw new AppError(`No presentation found for the id "${presentation_id}".`, 404);
@@ -25,14 +31,11 @@ class IncludeAttendeeService {
       throw new AppError(`No attendee found with the email "${attendee_email}".`, 404);
     }
 
-    // const newAttendees = [...presentation.attendees, attendee]
+    const relation = await this.presentationsAttendeesRepository.create(
+      { presentationId: presentation_id, attendeeId: attendee.id }
+    )
 
-    // const updatedPresentation = await this.presentationsRepository.save({
-    //   ...presentation,
-    //   attendees: newAttendees
-    // });
-
-    return presentation;
+    return relation;
   }
 }
 

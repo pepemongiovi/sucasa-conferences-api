@@ -1,9 +1,9 @@
 import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm';
 
-export default class CreateAttendeesPresentations1624378259149 implements MigrationInterface {
+export default class CreatePresentationsAttendees1624378259149 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(new Table({
-      name: 'attendees_presentations',
+      name: 'presentations_attendees',
       columns: [
         {
           name: 'attendeeId',
@@ -15,10 +15,15 @@ export default class CreateAttendeesPresentations1624378259149 implements Migrat
           type: 'int',
           isPrimary: true,
         },
+        {
+          name: 'created_at',
+          type: 'timestamp',
+          default: 'now()',
+        },
       ],
     }))
 
-    await queryRunner.createForeignKey('attendees_presentations',
+    await queryRunner.createForeignKey('presentations_attendees',
       new TableForeignKey({
         columnNames: ['attendeeId'],
         referencedColumnNames: ['id'],
@@ -26,7 +31,7 @@ export default class CreateAttendeesPresentations1624378259149 implements Migrat
       })
     );
 
-    await queryRunner.createForeignKey('attendees_presentations',
+    await queryRunner.createForeignKey('presentations_attendees',
       new TableForeignKey({
         columnNames: ['presentationId'],
         referencedColumnNames: ['id'],
@@ -36,6 +41,6 @@ export default class CreateAttendeesPresentations1624378259149 implements Migrat
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('attendees_presentations');
+    await queryRunner.dropTable('presentations_attendees');
   }
 }

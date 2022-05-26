@@ -12,15 +12,15 @@ services:
     environment:
       POSTGRES_PASSWORD: sucasa
       POSTGRES_USER: postgres
-      POSTGRES_DB: new_conf_db
+      POSTGRES_DB: sucasa-db
     ports:
       - '5432:5432'
     volumes:
       - ./var/lib/postgresql/data
     networks:
       - sucasa_net
-  conferences-api12:
-    container_name: conferences-api12
+  sucasa-api:
+    container_name: sucasa-api
     build:
       context: .
       dockerfile: ./Dockerfile

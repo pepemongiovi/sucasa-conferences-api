@@ -5,6 +5,8 @@ import AttendeesRepository from '@modules/attendees/infra/typeorm/repositories/A
 
 import IPresentationsRepository from '@modules/presentations/repositories/IPresentationsRepository';
 import PresentationsRepository from '@modules/presentations/infra/typeorm/repositories/PresentationsRepository';
+import PresentationsAttendeesRepository from '@modules/presentations/infra/typeorm/repositories/PresentationsAttendeesRepository';
+import IPresentationsAttendeesRepository from '@modules/presentations/repositories/IPresentationsAttendeesRepository';
 
 container.registerSingleton<IAttendeesRepository>(
   'AttendeesRepository',
@@ -14,4 +16,9 @@ container.registerSingleton<IAttendeesRepository>(
 container.registerSingleton<IPresentationsRepository>(
   'PresentationsRepository',
   PresentationsRepository,
+);
+
+container.registerSingleton<IPresentationsAttendeesRepository>(
+  'PresentationsAttendeesRepository',
+  PresentationsAttendeesRepository,
 );

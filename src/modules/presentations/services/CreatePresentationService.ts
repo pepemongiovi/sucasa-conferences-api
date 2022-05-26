@@ -1,4 +1,5 @@
 import { inject, injectable } from 'tsyringe';
+import AppError from '@shared/errors/AppError';
 
 import Presentation from '../infra/typeorm/entities/Presentation';
 import IPresentationsRepository from '../repositories/IPresentationsRepository';
@@ -16,6 +17,12 @@ class CreatePresentationService {
   ) { }
 
   async execute({ presentation, details, room }: IRequest): Promise<Presentation> {
+    const isRoomTaken = await this.presentationsRepository.findByRoom(room);
+
+    if (isRoomTaken) {
+      throw new AppError(`A presentation is already booked for room "${room}".`, 409);
+    }
+
     const newPresentation = await this.presentationsRepository.create({ presentation, details, room });
     return newPresentation;
   }

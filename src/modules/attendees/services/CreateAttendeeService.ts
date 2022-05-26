@@ -20,7 +20,7 @@ class CreateAttendeeService {
     const isEmailTaken = await this.attendeesRepository.findByEmail(email);
 
     if (isEmailTaken) {
-      throw new AppError(`Email "${email}" already registered.`, 403);
+      throw new AppError(`Email "${email}" already registered.`, 409);
     }
 
     const attendee = await this.attendeesRepository.create({ name, company, email, bio });

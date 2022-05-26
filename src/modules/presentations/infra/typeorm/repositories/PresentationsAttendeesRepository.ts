@@ -16,6 +16,14 @@ class PresentationsAttendeesRepository implements IPresentationsAttendeesReposit
     return presentation;
   }
 
+
+  public async findByPresentationIdAndAttendeeId(presentationId: number, attendeeId: number): Promise<PresentationsAttendees | undefined> {
+    const presentation: any = await this.ormRepository.findOne({ where: { presentationId, attendeeId } });
+
+    return presentation;
+  }
+
+
   public async create(data: ICreatePresentationsAttendeesDTO): Promise<PresentationsAttendees> {
     const presentationAttendees = this.ormRepository.create(data);
 

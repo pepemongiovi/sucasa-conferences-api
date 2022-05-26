@@ -16,6 +16,12 @@ class PresentationsRepository implements IPresentationsRepository {
     return presentation;
   }
 
+  public async findByRoom(room: number): Promise<Presentation | undefined> {
+    const presentation: any = await this.ormRepository.findOne({ where: { room } });
+
+    return presentation;
+  }
+
   public async create(presentationData: ICreatePresentationDTO): Promise<Presentation> {
     const presentation = this.ormRepository.create(presentationData);
 

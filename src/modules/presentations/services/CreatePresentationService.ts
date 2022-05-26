@@ -20,7 +20,7 @@ class CreatePresentationService {
     const isRoomTaken = await this.presentationsRepository.findByRoom(room);
 
     if (isRoomTaken) {
-      throw new AppError(`A presentation is already booked for room "${room}".`, 409);
+      throw new AppError('Room unavailable.', 409);
     }
 
     const newPresentation = await this.presentationsRepository.create({ presentation, details, room });

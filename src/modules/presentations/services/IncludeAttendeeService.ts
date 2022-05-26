@@ -26,16 +26,16 @@ class IncludeAttendeeService {
     const attendee = await this.attendeesRepository.findByEmail(attendee_email);
 
     if (!presentation) {
-      throw new AppError(`No presentation found for the id "${presentation_id}".`, 404);
+      throw new AppError('No presentation found for the given id.', 404);
     } else if (!attendee) {
-      throw new AppError(`No attendee found with the email "${attendee_email}".`, 404);
+      throw new AppError('No attendee found for the given email.', 404);
     }
 
     const attendeeId = attendee.id
     const alreadyIncluded = await this.presentationsAttendeesRepository.findByPresentationIdAndAttendeeId(presentation_id, attendeeId)
 
     if (alreadyIncluded) {
-      throw new AppError(`Attendee with email "${attendee_email}" already included in the presentation with id "${presentation_id}".`, 409);
+      throw new AppError('Attendee already included in presentation.', 409);
     }
 
     const relation = await this.presentationsAttendeesRepository.create(

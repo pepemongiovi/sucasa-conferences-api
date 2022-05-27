@@ -7,7 +7,6 @@ interface IRequest {
   name: string;
   company: string;
   email: string;
-  bio: string;
 }
 
 @injectable()
@@ -16,14 +15,14 @@ class CreateAttendeeService {
     @inject('AttendeesRepository')
     private attendeesRepository: IAttendeesRepository
   ) { }
-  async execute({ name, company, email, bio }: IRequest): Promise<Attendee> {
+  async execute({ name, company, email }: IRequest): Promise<Attendee> {
     const isEmailTaken = await this.attendeesRepository.findByEmail(email);
 
     if (isEmailTaken) {
       throw new AppError('Email already registered.', 409);
     }
 
-    const attendee = await this.attendeesRepository.create({ name, company, email, bio });
+    const attendee = await this.attendeesRepository.create({ name, company, email });
 
     return attendee;
   }

@@ -11,13 +11,13 @@ class PresentationsRepository implements IPresentationsRepository {
   }
 
   public async findById(id: number): Promise<Presentation | undefined> {
-    const presentation: any = await this.ormRepository.findOne(id);
+    const presentation = await this.ormRepository.findOne(id);
 
     return presentation;
   }
 
   public async findByRoom(room: number): Promise<Presentation | undefined> {
-    const presentation: any = await this.ormRepository.findOne({ where: { room } });
+    const presentation = await this.ormRepository.findOne({ where: { room } });
 
     return presentation;
   }

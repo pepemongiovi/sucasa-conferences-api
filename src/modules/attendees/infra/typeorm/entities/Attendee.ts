@@ -20,9 +20,6 @@ class Attendee {
   @Column()
   email: string;
 
-  @Column()
-  bio: string;
-
   @CreateDateColumn()
   registered: Date;
 

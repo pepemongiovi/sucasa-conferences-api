@@ -1,4 +1,5 @@
 import Attendee from '@modules/attendees/infra/typeorm/entities/Attendee';
+import { Speaker } from '@modules/presentations/dtos/ICreatePresentationDTO';
 import {
   Entity,
   Column,
@@ -26,6 +27,9 @@ class Presentation {
 
   @Column()
   room: number;
+
+  @Column({ type: 'json' })
+  speaker: Speaker;
 
   @CreateDateColumn()
   created_at: Date;

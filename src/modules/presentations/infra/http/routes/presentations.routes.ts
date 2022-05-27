@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
 
-import AttendeeRegistrationController from '../controllers/AttendeeRegistrationController';
+import AttendeeRegistrationController from '../controllers/PresentationRegistrationController';
 import IncludeAttendeeController from '../controllers/IncludeAttendeeController';
 
 const presentationsRouter = Router();
@@ -15,6 +15,7 @@ presentationsRouter.post(
       presentation: Joi.string().required(),
       details: Joi.string().required(),
       room: Joi.number().required(),
+      speaker: Joi.object().required(),
     },
   }),
   attendeeRegistrationController.create,

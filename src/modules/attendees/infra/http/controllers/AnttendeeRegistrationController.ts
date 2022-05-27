@@ -6,11 +6,11 @@ import CreateAttendeeService from '@modules/attendees/services/CreateAttendeeSer
 
 export default class AttendeeRegistrationController {
   public async create(request: Request, response: Response): Promise<Response> {
-    const { name, company, email, bio } = request.body;
+    const { name, company, email } = request.body;
 
     const createAttendee = container.resolve(CreateAttendeeService);
 
-    const attendee = await createAttendee.execute({ name, company, email, bio });
+    const attendee = await createAttendee.execute({ name, company, email });
 
     return response.json(classToClass(attendee));
   }

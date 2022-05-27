@@ -13,7 +13,6 @@ attendeesRouter.post(
       name: Joi.string().required(),
       company: Joi.string().required(),
       email: Joi.string().email().required(),
-      bio: Joi.string().required(),
     },
   }),
   attendeeRegistrationController.create,

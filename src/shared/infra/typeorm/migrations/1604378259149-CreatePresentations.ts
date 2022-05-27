@@ -26,6 +26,10 @@ export default class CreatePresentations1604378259149 implements MigrationInterf
             type: 'int',
           },
           {
+            name: 'speaker',
+            type: 'json'
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',

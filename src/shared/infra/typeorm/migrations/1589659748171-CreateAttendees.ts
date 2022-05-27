@@ -18,10 +18,6 @@ export default class CreateAttendees1589659748171 implements MigrationInterface 
             type: 'varchar',
           },
           {
-            name: 'bio',
-            type: 'varchar',
-          },
-          {
             name: 'company',
             type: 'varchar',
           },
